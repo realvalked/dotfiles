@@ -1,0 +1,232 @@
+set $mod Mod4
+
+#exec dbus-launch --exit-with-session sway
+#exec dbus-run-session sway
+
+# terminal greet on boot
+exec kitty
+
+exec pipewire
+
+# in case you don't wanna set up pipewire or smth
+#exec artix-pipewire-launcher
+
+# custom configs
+#blur enable
+#corner_radius 28
+#shadows enable
+#default_dim_inactive 0.5
+
+blur enable
+blur_passes 1
+blur_radius 2
+corner_radius 28
+shadows enable
+shadows_on_csd enable
+shadow_blur_radius 2
+shadow_color #88000088
+default_dim_inactive 0.5
+titlebar_separator disable
+
+gaps outer 40
+gaps inner 10
+
+# notification daemon
+exec mako
+#exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
+
+# polkit
+exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
+
+# wl-sunset
+exec_always wlsunset -l 44.4 -L 26.1
+
+# swaylock
+bindsym $mod+l exec swaylock --clock --indicator --screenshots --effect-scale 0.4 --effect-vignette 0.2:0.5 --effect-blur 4x2 --datestr "%a %e.%m.%Y" --timestr "%k:%M:%S"
+
+# autostart applications
+exec corectrl
+#exec easyeffects --gapplication-service
+
+# monitor and wallpaper
+output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/Wallpapers/new.jpg fill
+
+# disable mouse accel
+input type:pointer {
+    accel_profile flat
+}
+
+# no idea
+for_window [app_id=".*osu!.*"] max_render_time 2
+default_border none
+
+# keyboard repeat rate
+input type:keyboard {
+    repeat_delay 400
+    repeat_rate 100
+}
+
+# autostart waybar
+exec_always sh -c "killall waybar; waybar &"
+
+# take a screenshot
+#bindsym Print exec grim -g "$(slurp)" - | swappy -f -
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
+#bindsym Print exec grim copy active
+
+# rofi
+bindsym $mod+e exec rofi -show power-menu -modi power-menu:rofi-power-menu -show-icons
+#bindsym $mod+d exec rofi -dmenu -show-icons
+#set $menu "rofi -dmenu -show-icons"
+#bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+#set $menu "rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
+bindsym $mod+d exec "rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
+#bindsym $mod+d exec $menu
+xwayland enable
+
+# fonts thing
+#font pango:monospace 8
+#font pango:DejaVu Sans Mono 8
+
+# something something xdg
+#exec --no-startup-id dex --autostart --environment i3 testing attention please
+
+# nm-applet
+exec --no-startup-id nm-applet
+
+# Use pactl to adjust volume in PulseAudio.
+#set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# tiling something drag
+#tiling_drag modifier titlebar
+
+# start a terminal
+bindsym $mod+Return exec kitty
+
+# kill focused window
+bindsym $mod+w kill
+
+# change focus
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+## change container layout (stacked, tabbed, toggle split)
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+#bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r reload
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        # bindsym j resize shrink width 10 px or 10 ppt
+        # bindsym k resize grow height 10 px or 10 ppt
+        # bindsym l resize shrink height 10 px or 10 ppt
+        # bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
