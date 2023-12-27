@@ -1,0 +1,167 @@
+@define-color bg-color #1a1b26;
+@define-color fg-color #a9b1d6;
+
+@define-color tn-green #9ece6a;
+@define-color tn-red #f7768e;
+@define-color tn-blue #7aa2f7;
+@define-color tn-yellow #e0af68;
+@define-color tn-purple #bb9af7;
+
+@define-color tn-dark-green #485e30;
+@define-color tn-dark-red #8c4351;
+@define-color tn-dark-blue #34548a;
+@define-color tn-dark-yellow #8f5e15;
+@define-color tn-dark-purple #5a4a78;
+
+/* Global Styles */
+* {
+    font-family: JetBrainsMono NFP;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Waybar */
+#waybar {
+    background: @bg-color;
+    color: @fg-color;
+    /* border-bottom: 2px solid @tn-dark-purple; */
+}
+
+/* Tooltips */
+tooltip {
+    color: @fg-color;
+    background: @bg-color;
+    border: 2px solid @tn-blue;
+    border-radius: 5px;
+}
+
+/* Modules */
+#mode,
+#tray,
+#clock,
+#mpris,
+#upower,
+#language,
+#workspaces,
+#network.vpn,
+#pulseaudio.speaker,
+#pulseaudio.mic,
+#temperature,
+#custom-power,
+#custom-updates,
+#custom-weather,
+#custom-notification,
+#custom-scratchpad-indicator {
+    margin: 3px 1px;
+    padding: 1px 5px;
+    border-radius: 5px;
+}
+
+/* Specific Module Styling */
+#mpris {
+    margin-right: 10px;
+}
+
+#clock,
+#custom-weather {
+    margin-right: 0;
+}
+
+#mode {
+    color: @tn-green;
+}
+
+#custom-updates,
+#custom-scratchpad-indicator {
+    color: @tn-blue;
+}
+
+#network.vpn {
+    color: @tn-yellow;
+}
+
+#pulseaudio.speaker {
+    min-width: 13px;
+}
+
+#pulseaudio.mic {
+    background: @tn-green;
+    color: @bg-color;
+    min-width: 13px;
+}
+
+#pulseaudio.speaker.muted {
+    background: @tn-red;
+    color: @bg-color;
+}
+
+#pulseaudio.mic.source-muted {
+    background: none;
+    color: @fg-color;
+}
+
+#custom-notification.notification {
+    color: @tn-blue;
+    border-radius: 0px;
+    padding-top: 2px;
+    border-bottom: 2px solid @tn-blue;
+}
+
+#custom-notification.dnd-none {
+    color: @tn-red;
+}
+
+#custom-notification.dnd-notification {
+    color: @tn-red;
+    border-radius: 0px;
+    padding-top: 2px;
+    border-bottom: 2px solid @tn-red;
+}
+
+#custom-notification,
+#custom-notification.notification,
+#custom-notification.dnd-notification {
+    border-radius: 0px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+#custom-power {
+    color: @tn-red;
+    margin-left: 10px;
+}
+
+#upower.charging {
+    color: @tn-green;
+}
+
+#temperature.critical {
+    background: @tn-red;
+    color: @bg-color;
+}
+
+/* Workspace Buttons */
+#workspaces {
+    margin: 0px 1px;
+    padding: 0px;
+}
+
+#workspaces button {
+    padding: 0px;
+    color: @tn-blue;
+    border-radius: 5px;
+    min-width: 25px;
+}
+
+#workspaces button.persistent {
+    color: @fg-color;
+    border-radius: 5px;
+    padding: 0px;
+}
+
+#workspaces button.focused {
+    color: @tn-green;
+    border-radius: 0px;
+    padding-top: 2px;
+    border-bottom: 2px solid @tn-green;
+}
