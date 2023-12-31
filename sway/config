@@ -1,39 +1,28 @@
 set $mod Mod4
 
-#exec dbus-launch --exit-with-session sway
-#exec dbus-run-session sway
-
-# terminal greet on boot
+# terminal greet on startup
 exec kitty
 
+# make sure to autostart pipewire-pulse and wireplumber along with pipewire
 exec pipewire
 
-# in case you don't wanna set up pipewire or smth
-#exec artix-pipewire-launcher
-
 # custom configs
-#blur enable
-#corner_radius 28
-#shadows enable
-#default_dim_inactive 0.5
-
 blur enable
-blur_passes 1
-blur_radius 2
 corner_radius 28
 shadows enable
-shadows_on_csd enable
-shadow_blur_radius 2
-shadow_color #88000088
 default_dim_inactive 0.5
-titlebar_separator disable
+#blur_passes 1
+#blur_radius 2
+#shadows_on_csd enable
+#shadow_blur_radius 2
+#shadow_color #88000088
+#titlebar_separator disable
 
 gaps outer 40
 gaps inner 10
 
 # notification daemon
 exec mako
-#exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 
 # polkit
 exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
@@ -49,12 +38,17 @@ exec corectrl
 #exec easyeffects --gapplication-service
 
 # monitor and wallpaper
-output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/Wallpapers/new.jpg fill
+output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/.config/Wallpapers/new.jpg fill
 
 # disable mouse accel
 input type:pointer {
     accel_profile flat
 }
+
+#input type:keyboard {
+#        xkb_layout us,latam
+#}
+#bindsym $mod+0 input type:keyboard xkb_switch_layout next
 
 # no idea
 for_window [app_id=".*osu!.*"] max_render_time 2
@@ -68,6 +62,8 @@ input type:keyboard {
 
 # autostart waybar
 exec_always sh -c "killall waybar; waybar &"
+# workstyle
+exec_always --no-startup-id workstyle &> /tmp/workstyle.log
 
 # take a screenshot
 #bindsym Print exec grim -g "$(slurp)" - | swappy -f -
@@ -88,14 +84,10 @@ xwayland enable
 #font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
 
-# something something xdg
-#exec --no-startup-id dex --autostart --environment i3 testing attention please
-
 # nm-applet
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-#set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -104,11 +96,11 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# tiling something drag
 #tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty
+#bindsym $mod+Return exec kitty
+bindsym $mod+Return exec foot
 
 # kill focused window
 bindsym $mod+w kill
