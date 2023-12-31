@@ -1,4 +1,5 @@
 set $mod Mod4
+xwayland enable
 
 # terminal greet on startup
 exec kitty
@@ -6,9 +7,17 @@ exec kitty
 # make sure to autostart pipewire-pulse and wireplumber along with pipewire
 exec pipewire
 
+seat seat0 {
+    xcursor_theme Catppuccin-Mocha-Green-Cursors 32
+}
+
+
+# Autotiling
+exec_always pkill autotiling && autotiling
+
 # custom configs
 blur enable
-corner_radius 28
+corner_radius 5
 shadows enable
 default_dim_inactive 0.5
 #blur_passes 1
@@ -18,8 +27,8 @@ default_dim_inactive 0.5
 #shadow_color #88000088
 #titlebar_separator disable
 
-gaps outer 40
-gaps inner 10
+gaps outer 12
+gaps inner 6
 
 # notification daemon
 exec mako
@@ -66,19 +75,13 @@ exec_always sh -c "killall waybar; waybar &"
 exec_always --no-startup-id workstyle &> /tmp/workstyle.log
 
 # take a screenshot
-#bindsym Print exec grim -g "$(slurp)" - | swappy -f -
-bindsym Print exec grim -g "$(slurp)" - | wl-copy
-#bindsym Print exec grim copy active
+bindsym Print exec grim -g "$(slurp)" - | swappy -f -
+#bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
 # rofi
 bindsym $mod+e exec rofi -show power-menu -modi power-menu:rofi-power-menu -show-icons
-#bindsym $mod+d exec rofi -dmenu -show-icons
-#set $menu "rofi -dmenu -show-icons"
-#bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-#set $menu "rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
-bindsym $mod+d exec "rofi -combi-modi window,drun,ssh,run -show combi -show-icons"
-#bindsym $mod+d exec $menu
-xwayland enable
+set $menu "rofi -show drun -show-icons"
+bindsym $mod+d exec $menu
 
 # fonts thing
 #font pango:monospace 8
@@ -87,11 +90,10 @@ xwayland enable
 # nm-applet
 exec --no-startup-id nm-applet
 
-# Use pactl to adjust volume in PulseAudio.
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# audio control keybinds
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -192,13 +194,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r reload
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
         # Pressing left will shrink the window’s width.
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
@@ -221,3 +219,5 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+include /etc/sway/config.d/*
