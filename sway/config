@@ -46,7 +46,7 @@ exec corectrl
 #exec easyeffects --gapplication-service
 
 # monitor and wallpaper
-output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/.config/Wallpapers/new.jpg fill
+output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/.config/Wallpapers/raw.* fill
 
 # disable mouse accel
 input type:pointer {
