@@ -30,7 +30,7 @@ gaps outer 12
 gaps inner 6
 
 # notification daemon
-exec mako
+exec dunst
 
 # polkit
 exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
@@ -43,7 +43,7 @@ bindsym $mod+l exec swaylock --clock --indicator --screenshots --effect-scale 0.
 
 # autostart applications
 exec corectrl
-#exec easyeffects --gapplication-service
+exec easyeffects --gapplication-service
 
 # monitor and wallpaper
 output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/.config/Wallpapers/raw.* fill
@@ -74,8 +74,8 @@ exec_always sh -c "killall waybar; waybar &"
 exec_always --no-startup-id workstyle &> /tmp/workstyle.log
 
 # take a screenshot
-bindsym Print exec grim -g "$(slurp)" - | swappy -f -
-#bindsym Print exec grim -g "$(slurp)" - | wl-copy
+#bindsym Print exec grim -g "$(slurp)" - | swappy -f -
+bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
 # rofi
 bindsym $mod+e exec rofi -show power-menu -modi power-menu:rofi-power-menu -show-icons
@@ -85,6 +85,7 @@ bindsym $mod+d exec $menu
 # fonts thing
 #font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
+font 'Roboto 12'
 
 # nm-applet
 exec --no-startup-id nm-applet
@@ -218,3 +219,6 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 include /etc/sway/config.d/*
+exec export XDG_SESSION_TYPE=wayland
+exec export XDG_CURRENT_DESKTOP=sway
+exec export MOZ_ENABLE_WAYLAND=1
