@@ -1,12 +1,13 @@
 set $mod Mod4
 xwayland enable
 
-# terminal greet on startup
+# greet on startup
 exec kitty
 
 # make sure to autostart pipewire-pulse and wireplumber along with pipewire
-exec pipewire
+exec pipewire & firefox
 
+# cursor (needs fixing)
 seat seat0 {
     xcursor_theme Catppuccin-Mocha-Green-Cursors 32
 }
@@ -14,9 +15,9 @@ seat seat0 {
 # Autotiling
 exec_always pkill autotiling && autotiling
 
-# custom configs
+# swayfx (comment if you're using normal sway)
 blur enable
-corner_radius 5
+corner_radius 12
 shadows enable
 default_dim_inactive 0.5
 #blur_passes 1
@@ -26,6 +27,7 @@ default_dim_inactive 0.5
 #shadow_color #88000088
 #titlebar_separator disable
 
+# gaps
 gaps outer 12
 gaps inner 6
 
@@ -43,7 +45,7 @@ bindsym $mod+l exec swaylock --clock --indicator --screenshots --effect-scale 0.
 
 # autostart applications
 exec corectrl
-exec easyeffects --gapplication-service
+#exec easyeffects --gapplication-service
 
 # monitor and wallpaper
 output DP-1 mode 1920x1080@240Hz pos 0 0 bg ~/.config/Wallpapers/raw.* fill
@@ -56,7 +58,7 @@ input type:pointer {
 #input type:keyboard {
 #        xkb_layout us,latam
 #}
-#bindsym $mod+0 input type:keyboard xkb_switch_layout next
+# bindsym $mod+0 input type:keyboard xkb_switch_layout next
 
 # no idea
 for_window [app_id=".*osu!.*"] max_render_time 2
@@ -199,10 +201,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        # bindsym j resize shrink width 10 px or 10 ppt
-        # bindsym k resize grow height 10 px or 10 ppt
-        # bindsym l resize shrink height 10 px or 10 ppt
-        # bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 5 px or 5 ppt
