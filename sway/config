@@ -2,10 +2,10 @@ set $mod Mod4
 xwayland enable
 
 # greet on startup
-exec kitty
+exec kitty & firefox
 
 # make sure to autostart pipewire-pulse and wireplumber along with pipewire
-exec pipewire & firefox
+exec pipewire
 
 # cursor (needs fixing)
 seat seat0 {
@@ -35,7 +35,9 @@ gaps inner 6
 exec dunst
 
 # polkit
-exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
+#exec --no-startup-id /usr/lib/xfce-polkit/xfce-polkit
+#exec_always /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # wl-sunset
 exec_always wlsunset -l 44.4 -L 26.1

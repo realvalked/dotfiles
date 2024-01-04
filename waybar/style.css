@@ -22,7 +22,7 @@
 
 /* Waybar */
 #waybar {
-    background: @bg-color;
+    background: rgba(0, 0, 0, 0);
     color: @fg-color;
     /* border-bottom: 2px solid @tn-dark-purple; */
 }
