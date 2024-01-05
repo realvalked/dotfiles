@@ -8,9 +8,9 @@ exec kitty & firefox
 exec pipewire
 
 # cursor (needs fixing)
-seat seat0 {
-    xcursor_theme Catppuccin-Mocha-Green-Cursors 32
-}
+# seat seat0 {
+#    xcursor_theme Catppuccin-Mocha-Green-Cursors 32
+# }
 
 # Autotiling
 exec_always pkill autotiling && autotiling
@@ -57,12 +57,13 @@ input type:pointer {
     accel_profile flat
 }
 
+# different keyboard layouts
 #input type:keyboard {
 #        xkb_layout us,latam
 #}
 # bindsym $mod+0 input type:keyboard xkb_switch_layout next
 
-# no idea
+# 
 for_window [app_id=".*osu!.*"] max_render_time 2
 default_border none
 
@@ -75,7 +76,7 @@ input type:keyboard {
 # autostart waybar
 exec_always sh -c "killall waybar; waybar &"
 # workstyle
-exec_always --no-startup-id workstyle &> /tmp/workstyle.log
+# exec_always --no-startup-id workstyle &> /tmp/workstyle.log
 
 # take a screenshot
 #bindsym Print exec grim -g "$(slurp)" - | swappy -f -
@@ -86,10 +87,10 @@ bindsym $mod+e exec rofi -show power-menu -modi power-menu:rofi-power-menu -show
 set $menu "rofi -show drun -show-icons"
 bindsym $mod+d exec $menu
 
-# fonts thing
+# fonts
 #font pango:monospace 8
 #font pango:DejaVu Sans Mono 8
-font 'Roboto 12'
+#font 'Roboto 12'
 
 # nm-applet
 exec --no-startup-id nm-applet
